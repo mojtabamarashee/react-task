@@ -76,7 +76,7 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
       <Button
         style={{margin: '5%', float: 'right'}}
         variant="contained"
-        onClick={() => setFlightNum(4)}
+        onClick={() => setFlightNum(flightNum + 1)}
         color="default">
         Skip
       </Button>
