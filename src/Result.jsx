@@ -14,7 +14,7 @@ function createData(state1, state2, state3) {
 
 const rows = [['flight1']];
 
-export default function Result({state1, state2, state3, name}) {
+export default function Result({state1, state2, state3, name, setFlightNum}) {
     console.log("name = ", name);
   console.log('state1 = ', state1);
   const classes = useStyles();
@@ -52,10 +52,11 @@ export default function Result({state1, state2, state3, name}) {
 
   return (
     <div>
-      <Circle text="flight1" name={name} />
-      <Circle text="flight2" name={name} />
-      <Circle text="flight3" name={name} />
-      <Circle text="result" name={name} />
+      <Circle text="flight1" name={name} setFlightNum={() => setFlightNum(1)} />
+      <Circle text="flight2" name={name} setFlightNum={() => setFlightNum(2)} />
+      <Circle text="flight3" name={name} setFlightNum={() => setFlightNum(3)} />
+      <Circle text="result" name={name} setFlightNum={() => setFlightNum(4)} />
+
       <table className={classes.table} size="small" aria-label="a dense table">
         <thead>
           <tr>

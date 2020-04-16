@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import Row from './Row.jsx';
 import Button from '@material-ui/core/Button';
 
-function Circle({text, name}) {
+function Circle({text, name, setFlightNum}) {
   return (
     <div
+      onClick={e => setFlightNum()}
       style={{
         display: 'inline-block',
+        cursor: 'pointer',
         width: '50px',
         height: '50px',
         borderRadius: '50%',
@@ -15,7 +17,7 @@ function Circle({text, name}) {
         color: '#fff',
         lineHeight: '50px',
         textAlign: 'center',
-        background: text == name ? "green" : "grey",
+        background: text == name ? 'green' : 'grey',
         margin: '0 0 30px 30px',
       }}>
       {text}
@@ -49,10 +51,10 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
   }
   return (
     <div>
-      <Circle text="flight1" name = {name}/>
-      <Circle text="flight2" name = {name}/>
-      <Circle text="flight3" name = {name}/>
-      <Circle text="result" name = {name}/>
+      <Circle text="flight1" name={name} setFlightNum={() => setFlightNum(1)} />
+      <Circle text="flight2" name={name} setFlightNum={() => setFlightNum(2)} />
+      <Circle text="flight3" name={name} setFlightNum={() => setFlightNum(3)} />
+      <Circle text="result" name={name} setFlightNum={() => setFlightNum(4)} />
       {Comp}
       <Button
         style={{margin: '5%'}}

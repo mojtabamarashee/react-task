@@ -98,6 +98,7 @@ function App() {
           state1={state1}
           state2={state2}
           state3={state3}
+          setFlightNum={setFlightNum}
           name="result"
         />
       </div>
