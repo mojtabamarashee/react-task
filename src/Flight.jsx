@@ -3,6 +3,26 @@ import ReactDOM from 'react-dom';
 import Row from './Row.jsx';
 import Button from '@material-ui/core/Button';
 
+function Circle({text, name}) {
+  return (
+    <div
+      style={{
+        display: 'inline-block',
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        fontSize: '15px',
+        color: '#fff',
+        lineHeight: '50px',
+        textAlign: 'center',
+        background: text == name ? "green" : "grey",
+        margin: '0 0 30px 30px',
+      }}>
+      {text}
+    </div>
+  );
+}
+
 function Flight({state, setState, flightNum, setFlightNum, name}) {
   const [numOfRows, setNumOfRows] = React.useState(1);
 
@@ -29,7 +49,10 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
   }
   return (
     <div>
-      <span style={{margin: '200px'}}>{name}</span>
+      <Circle text="flight1" name = {name}/>
+      <Circle text="flight2" name = {name}/>
+      <Circle text="flight3" name = {name}/>
+      <Circle text="result" name = {name}/>
       {Comp}
       <Button
         style={{margin: '5%'}}
@@ -41,7 +64,7 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
         Prevous
       </Button>
       <Button
-        style={{margin: '5%', float:"right"}}
+        style={{margin: '5%', float: 'right'}}
         variant="contained"
         onClick={() => setFlightNum(flightNum + 1)}
         color="secondary">
@@ -49,7 +72,7 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
       </Button>
 
       <Button
-        style={{margin: '5%', float:"right"}}
+        style={{margin: '5%', float: 'right'}}
         variant="contained"
         onClick={() => setFlightNum(4)}
         color="default">
@@ -59,4 +82,4 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
   );
 }
 
-export {Flight};
+export {Flight, Circle};
