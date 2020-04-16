@@ -47,11 +47,23 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-const names = ['A', 'B', 'C', 'D'];
 
-export default function Row({index, state, setState, numOfRows, setNumOfRows}) {
+const names = ['A', 'B', 'C', 'D'];
+const days = ['mon', 'tue', 'wed', 'thu', 'fra', 'sta', 'sun'];
+
+export default function Row({
+  index,
+  id,
+  state,
+  setState,
+  numOfRows,
+  setNumOfRows,
+}) {
+  console.log('index = ', index);
   const [personName, setPersonName] = React.useState([]);
-  const [selectedNum, setSelectedNum] = React.useState(0);
+  const [selectedNum, setSelectedNum] = React.useState(
+    days.some(day => state[index][day]),
+  );
   const classes = useStyles();
   const theme = useTheme();
 
@@ -63,110 +75,129 @@ export default function Row({index, state, setState, numOfRows, setNumOfRows}) {
     setState(temp);
   };
 
-  const MonChange = e => {
-    let temp = [...state];
-    temp[index].mon = e.target.checked;
-    setState(temp);
-    let s = selectedNum + 1;
-    setSelectedNum(s);
-    if (selectedNum >= 0 && e.target.checked && index < 3) {
-      let temp = [...state];
-      temp[index + 1].exist = e.target.checked;
-      setState(temp);
-    }
-  };
+  function FindNumOfRow(state) {
+    let len = 0;
+    state.forEach(v => (v.exist ? len++ : null));
+    return len;
+  }
 
-  const TueChange = e => {
+  const DayChange = (e, day, setDayCheck, index) => {
+    let s;
+    console.log('day = ', day);
+    console.log('index10 = ', index);
     let temp = [...state];
-    temp[index].tue = e.target.checked;
-    let s = selectedNum + 1;
-    setState(temp);
-    setSelectedNum(s);
-    if (selectedNum >= 0 && e.target.checked && index < 3) {
-      let temp = [...state];
-      temp[index + 1].exist = e.target.checked;
-      setState(temp);
+    console.log('tempI = ', temp);
+    if (e.target.checked) {
+      s = selectedNum;
+      console.log('s = ', s);
+      console.log('index = ', index);
+      if (s >= 1) {
+        setDayCheck(false);
+        temp[index + 1].exist = true;
+        temp[index + 1][day] = true;
+        //days.forEach((day, i) => (temp[index][day] = false));
+        //setState(temp);
+      } else {
+        temp[index][day] = true;
+        s = selectedNum + 1;
+        console.log('s5 = ', s);
+        setSelectedNum(s);
+        setDayCheck(true);
+      }
+    } else {
+      s = selectedNum - 1;
+      console.log('s1 = ', s);
+      setDayCheck(false);
+      setSelectedNum(s);
+      if (s == 0) {
+        console.log('s4 = ', s);
+        if (FindNumOfRow(state) > 1) {
+          temp[index].exist = false;
+          days.forEach(day => (temp[index][day] = false));
+          temp.sort((a, b) => b.exist - a.exist);
+        }
+        console.log('temp = ', temp);
+        //setState(temp);
+      }
     }
-  };
-
-  const WedChange = e => {
-    let temp = [...state];
-    temp[index].wed = e.target.checked;
     setState(temp);
-    let s = selectedNum + 1;
-    setSelectedNum(s);
-    if (selectedNum >= 0 && e.target.checked && index < 3) {
-      let temp = [...state];
-      temp[index + 1].exist = e.target.checked;
-      setState(temp);
-    }
-  };
-
-  const ThuChange = e => {
-    let temp = [...state];
-    temp[index].thu = e.target.checked;
-    setState(temp);
-    let s = selectedNum + 1;
-    setSelectedNum(s);
-    if (selectedNum >= 0 && e.target.checked && index < 3) {
-      let temp = [...state];
-      temp[index + 1].exist = e.target.checked;
-      setState(temp);
-    }
-  };
-
-
-  const SunChange = e => {
-    let temp = [...state];
-    temp[index].sun = e.target.checked;
-    setState(temp);
-    let s = selectedNum + 1;
-    setSelectedNum(s);
-    if (selectedNum >= 0 && e.target.checked && index < 3) {
-      let temp = [...state];
-      temp[index + 1].exist = e.target.checked;
-      setState(temp);
-    }
+    console.log('temp2 = ', temp);
   };
 
   function TextFieldChange(e, name) {
     let temp = [...state];
-    if (name == 'A') temp[index].A = event.target.value;
-    else if (name == 'B') temp[index].B = event.target.value;
-    else if (name == 'C') temp[index].C = event.target.value;
-    else if (name == 'D') temp[index].D = event.target.value;
+    temp[index][name] = event.target.value;
     setState(temp);
   }
+
+  const [monCheck, setMonCheck] = React.useState(state[index].mon);
+  console.log('index = ', index);
+  console.log('monCheck = ', monCheck);
+  const [tueCheck, setTueCheck] = React.useState(state[index].tue);
+    let p = state[index].sun;
+  console.log('p = ', p);
+  const [sunCheck, setSunCheck] = React.useState(p);
+  console.log('sunCheck = ', sunCheck);
+  const [thuCheck, setThuCheck] = React.useState(state[index].thu);
+  const [fraCheck, setFraCheck] = React.useState(state[index].fra);
+
+  function FindCheckBoxStatus(index, day) {
+    let stat;
+    let arr = state.map((v, i) => (v.exist ? i : -1));
+    console.log('arr = ', arr);
+    let maxIndex = Math.max(...arr);
+    console.log('maxIndex = ', maxIndex);
+    if (index == maxIndex) {
+      stat = state.some((v, i) => v[day] && i != index);
+    } else {
+      stat = !state[index][day];
+    }
+    if (index == 0) {
+      console.log('stat = ', state);
+    }
+    return stat;
+  }
+
   return (
     <div>
       <FormControlLabel
-        control={<Checkbox name="checkedB" color="primary" />}
-        onChange={MonChange}
+        control={
+          <Checkbox checked={monCheck} name="checkedB" color="primary" />
+        }
+        onChange={e => DayChange(e, 'mon', setMonCheck, index)}
         label="MON"
+        disabled={FindCheckBoxStatus(index, 'mon')}
       />
 
       <FormControlLabel
-        control={<Checkbox name="checkedB" color="primary" />}
-        onChange={TueChange}
+        control={
+          <Checkbox checked={tueCheck} name="checkedB" color="primary" />
+        }
+        onChange={e => DayChange(e, 'tue', setTueCheck, index)}
         label="TUE"
+        disabled={FindCheckBoxStatus(index, 'tue')}
       />
 
       <FormControlLabel
         control={<Checkbox name="checkedB" color="primary" />}
-        onChange={WedChange}
+        onChange={e => DayChange(e, 'wed', setWedCheck, index)}
         label="WED"
         disabled
       />
 
       <FormControlLabel
-        control={<Checkbox name="checkedB" color="primary" />}
-        onChange={ThuChange}
+        control={
+          <Checkbox checked={thuCheck} name="checkedB" color="primary" />
+        }
+        onChange={e => DayChange(e, 'thu', setThuCheck, index)}
         label="THU"
+        disabled={FindCheckBoxStatus(index, 'thu')}
       />
 
       <FormControlLabel
         control={<Checkbox name="checkedB" color="primary" />}
         label="FRA"
+        onChange={e => DayChange(e, 'fra', setFraCheck, index)}
         disabled
       />
 
@@ -177,9 +208,16 @@ export default function Row({index, state, setState, numOfRows, setNumOfRows}) {
       />
 
       <FormControlLabel
-        control={<Checkbox name="checkedB" color="primary" />}
+        control={
+          <Checkbox
+            checked={(() => console.log('sunCheck1 = ', sunCheck), sunCheck)}
+            name="checkedB"
+            color="primary"
+          />
+        }
         label="SUN"
-        onChange={SunChange}
+        disabled={FindCheckBoxStatus(index, 'sun')}
+        onChange={e => DayChange(e, 'sun', setSunCheck, index)}
       />
 
       <FormControl className={classes.formControl}>

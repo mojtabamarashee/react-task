@@ -7,14 +7,20 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
   const [numOfRows, setNumOfRows] = React.useState(1);
 
   let Comp = [];
-  for (let i = 0; i < state.length; i++) {
+  let cntr = 0;
+  let i;
+  //let tempState = [...state];
+  //tempState.sort((a, b) => b.exist - a.exist);
+  //setState(tempState);
+  for (i = 0; i < state.length; i++) {
     if (state[i].exist == true) {
       Comp.push(
         <Row
           index={i}
+          id={cntr++}
           state={state}
           setState={setState}
-          key={i}
+          key={state[i].id}
           numOfRows={numOfRows}
           setNumOfRows={setNumOfRows}
         />,
@@ -23,10 +29,10 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
   }
   return (
     <div>
-      <span style={{margin:"200px"}}>{name}</span>
+      <span style={{margin: '200px'}}>{name}</span>
       {Comp}
       <Button
-        style={{margin: '100px'}}
+        style={{margin: '5%'}}
         onClick={() => {
           if (flightNum > 1) setFlightNum(flightNum - 1);
         }}
@@ -35,7 +41,7 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
         Prevous
       </Button>
       <Button
-        style={{margin: '100px'}}
+        style={{margin: '5%', float:"right"}}
         variant="contained"
         onClick={() => setFlightNum(flightNum + 1)}
         color="secondary">
@@ -43,13 +49,12 @@ function Flight({state, setState, flightNum, setFlightNum, name}) {
       </Button>
 
       <Button
-        style={{margin: '100px'}}
+        style={{margin: '5%', float:"right"}}
         variant="contained"
         onClick={() => setFlightNum(4)}
         color="default">
         Skip
       </Button>
-
     </div>
   );
 }

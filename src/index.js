@@ -27,24 +27,24 @@ class Flight1 extends React.Component {
 
 function App() {
   const [state1, setState1] = React.useState([
-    {exist: true, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0, abcd:'',},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
+    {exist: true, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false , id : 0 },
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 1},
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 2},
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 3},
   ]);
 
   const [state2, setState2] = React.useState([
-    {exist: true, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
+    {exist: true, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false , id : 0},
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 1},
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 2},
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 3},
   ]);
 
   const [state3, setState3] = React.useState([
-    {exist: true, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
-    {exist: false, mon: 0, tue: 0, wed: 0, thu: 0, fra: 0, sta: 0, sun: 0},
+    {exist: true, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false,  id :  0  },
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 1},
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 2},
+    {exist: false, mon: false, tue: false, wed: false, thu: false, fra: false, sta: false, sun: false, id : 3},
   ]);
 
   const [flightNum, setFlightNum] = React.useState(1);
