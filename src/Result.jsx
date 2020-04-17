@@ -15,8 +15,6 @@ function createData(state1, state2, state3) {
 const rows = [['flight1']];
 
 export default function Result({state1, state2, state3, name, setFlightNum}) {
-    console.log("name = ", name);
-  console.log('state1 = ', state1);
   const classes = useStyles();
   let A, B, C, D;
 
@@ -28,7 +26,6 @@ export default function Result({state1, state2, state3, name, setFlightNum}) {
     if (stateNum == 3) curState = state3;
 
     t = curState.filter((v, i) => v.exist && v[day])[0];
-    if (stateNum == 1) console.log('t = ', t);
     let A, B, C, D;
     A = B = C = D = '-';
     if (t) {
@@ -46,7 +43,6 @@ export default function Result({state1, state2, state3, name, setFlightNum}) {
       }
     }
     return {A, B, C, D};
-    console.log('B = ', B);
   };
   let days = ['mon', 'tue', 'wed', 'thu', 'fra', 'sta', 'sun'];
 

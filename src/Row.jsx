@@ -59,7 +59,6 @@ export default function Row({
   numOfRows,
   setNumOfRows,
 }) {
-  console.log('index = ', index);
   const [personName, setPersonName] = React.useState([]);
   const [selectedNum, setSelectedNum] = React.useState(
     days.some(day => state[index][day]),
@@ -83,14 +82,9 @@ export default function Row({
 
   const DayChange = (e, day, setDayCheck, index) => {
     let s;
-    console.log('day = ', day);
-    console.log('index10 = ', index);
     let temp = [...state];
-    console.log('tempI = ', temp);
     if (e.target.checked) {
       s = selectedNum;
-      console.log('s = ', s);
-      console.log('index = ', index);
       if (s >= 1) {
         setDayCheck(false);
         temp[index + 1].exist = true;
@@ -100,28 +94,23 @@ export default function Row({
       } else {
         temp[index][day] = true;
         s = selectedNum + 1;
-        console.log('s5 = ', s);
         setSelectedNum(s);
         setDayCheck(true);
       }
     } else {
       s = selectedNum - 1;
-      console.log('s1 = ', s);
       setDayCheck(false);
       setSelectedNum(s);
       if (s == 0) {
-        console.log('s4 = ', s);
         if (FindNumOfRow(state) > 1) {
           temp[index].exist = false;
           days.forEach(day => (temp[index][day] = false));
           temp.sort((a, b) => b.exist - a.exist);
         }
-        console.log('temp = ', temp);
         //setState(temp);
       }
     }
     setState(temp);
-    console.log('temp2 = ', temp);
   };
 
   function TextFieldChange(e, name) {
@@ -131,29 +120,20 @@ export default function Row({
   }
 
   const [monCheck, setMonCheck] = React.useState(state[index].mon);
-  console.log('index = ', index);
-  console.log('monCheck = ', monCheck);
   const [tueCheck, setTueCheck] = React.useState(state[index].tue);
     let p = state[index].sun;
-  console.log('p = ', p);
   const [sunCheck, setSunCheck] = React.useState(p);
-  console.log('sunCheck = ', sunCheck);
   const [thuCheck, setThuCheck] = React.useState(state[index].thu);
   const [fraCheck, setFraCheck] = React.useState(state[index].fra);
 
   function FindCheckBoxStatus(index, day) {
     let stat;
     let arr = state.map((v, i) => (v.exist ? i : -1));
-    console.log('arr = ', arr);
     let maxIndex = Math.max(...arr);
-    console.log('maxIndex = ', maxIndex);
     if (index == maxIndex) {
       stat = state.some((v, i) => v[day] && i != index);
     } else {
       stat = !state[index][day];
-    }
-    if (index == 0) {
-      console.log('stat = ', state);
     }
     return stat;
   }
