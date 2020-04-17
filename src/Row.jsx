@@ -223,6 +223,7 @@ export default function Row({
         <TextField
           key={name}
           id="standard-basic"
+		  required
           margin="none"
           label={name}
           onChange={e => TextFieldChange(e, name)}
